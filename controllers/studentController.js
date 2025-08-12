@@ -39,11 +39,13 @@ exports.submitTest = asyncHandler(async (req, res) => {
       isCorrect,
     };
   });
+  // Add total field for Submission validation
   const submission = await Submission.create({
     student: req.user._id,
     test: testId,
     answers: answerResults,
     score,
+    total: test.questions.length,
   });
   res.status(201).json({ message: 'Test submitted', score });
 });
