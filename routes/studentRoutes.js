@@ -12,6 +12,6 @@ const {
 router.get('/tests', protect, isStudent, getTests);
 router.get('/tests/:testId/questions', protect, isStudent, getTestQuestions);
 router.post('/tests/submit', protect, isStudent, submitTest);
-
+router.get('/submissions', protect, isStudent, getSubmissions);
 
 module.exports = router;

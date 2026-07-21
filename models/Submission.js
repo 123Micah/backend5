@@ -64,6 +64,6 @@ submissionSchema.virtual('percentage').get(function() {
 });
 
 // Index for frequently queried fields
-submissionSchema.index({ student: 1, test: 1, isDeleted: 1 });
+submissionSchema.index({ student: 1, test: 1 });
 
 module.exports = mongoose.model('Submission', submissionSchema);

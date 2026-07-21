@@ -79,7 +79,7 @@ exports.getAllSubmissions = async (req, res) => {
         return { ...sub.toObject(), answers };
       });
     
-    res.json(submissions);
+    res.json(transformed);
   } catch (error) {
     console.error('Error fetching all submissions:', error);
     res.status(500).json({ message: 'Server error' });

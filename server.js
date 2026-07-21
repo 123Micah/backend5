@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 const testRoutes = require('./routes/testRoutes');
+const errorHandler = require('./middleware/errorHandler');
 // const submissionRoutes = require('./routes/submissionRoutes');
 
 
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -11,8 +11,8 @@ const {
 
   router.post('/create-test', protect, isAdmin, createTest);
   router.post('/add-question', protect, isAdmin, upload.single('image'), addQuestion);
-  router.post('/submit/:id', submitTest);
-  router.get('/:id', getTest);
+  router.post('/submit/:id', protect, submitTest);
+  router.get('/:id', protect, getTest);
  
 
   

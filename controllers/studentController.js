@@ -12,7 +12,7 @@ exports.getTests = asyncHandler(async (req, res) => {
 // 2. Get all questions for a test (without correct answers)
 exports.getTestQuestions = asyncHandler(async (req, res) => {
   const { testId } = req.params;
-  const test = await Test.findById(testId);
+  const test = await Test.findById(testId).populate('questions');
   if (!test) {
     return res.status(404).json({ message: 'Test not found' });
   }

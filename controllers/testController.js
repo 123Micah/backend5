@@ -53,8 +53,8 @@ exports.addQuestion = asyncHandler(async (req, res) => {
   const { testId, text, options, correctAnswer } = req.body;
   let image = '';
   if (req.file) {
-    const result = await cloudinary.uploader.upload(req.file.path);
-    image = result.secure_url;
+    // multer-storage-cloudinary already uploads to Cloudinary; req.file.path is the secure URL
+    image = req.file.path;
   }
   // Create the question document
   const question = await Question.create({
@@ -110,16 +110,6 @@ exports.submitTest = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-exports.getTest = asyncHandler(async (req, res) => {
-  const test = await Test.findById(req.params.id).populate('questions');
-  if (!test) {
-    return res.status(404).json({ message: 'Test not found' });
-  }
-  res.json(test);
-});
-
-
 
 
 
