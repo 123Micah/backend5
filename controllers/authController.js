@@ -31,6 +31,36 @@ exports.adminLogin = asyncHandler(async (req, res) => {
   }
 });
 
+// Admin Register (TEMPORARY - Remove in production)
+exports.adminRegister = asyncHandler(async (req, res) => {
+  const { email, password, secretKey } = req.body;
+  
+  // TEMPORARY SECURITY: Simple secret key check
+  // Replace with proper admin invitation system in production
+  const TEMP_ADMIN_SECRET = process.env.TEMP_ADMIN_SECRET || 'temp-admin-key-change-me';
+  
+  if (secretKey !== TEMP_ADMIN_SECRET) {
+    res.status(403);
+    throw new Error('Invalid admin registration key');
+  }
+  
+  const adminExists = await Admin.findOne({ email });
+
+  if (adminExists) {
+    res.status(400);
+    throw new Error('Admin already exists');
+  }
+
+  const admin = await Admin.create({ email, password });
+
+  res.status(201).json({
+    _id: admin._id,
+    email: admin.email,
+    role: 'admin',
+    token: generateToken(admin._id, 'admin'),
+  });
+});
+
 // Student Register
 exports.studentRegister = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -70,6 +100,4 @@ exports.studentLogin = asyncHandler(async (req, res) => {
     throw new Error('Invalid student credentials');
   }
 });
-
-
 
