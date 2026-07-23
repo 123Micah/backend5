@@ -12,9 +12,6 @@ const {
   router.post('/create-test', protect, isAdmin, createTest);
   router.post('/add-question', protect, isAdmin, upload.single('image'), addQuestion);
   router.post('/submit/:id', protect, submitTest);
-  router.get('/:id', protect, getTest);
- 
-
+  router.get('/:id', getTest);  // Allow public access to view test content
   
   module.exports = router;
-  
